@@ -2,14 +2,23 @@
 
 #include "Resource.hpp" 
 
+#pragma once
+
+#include "Resource.hpp"
+#include <memory>
+
 class ResourceManager {
 public:
-    ResourceManager() : resource() {} 
+    ResourceManager() : resource(std::make_shared<Resource>()) {} 
 
     double get() {
-        return resource.get(); 
+        if (resource) {
+            return resource->get(); 
+        } else {
+            throw std::runtime_error("Resource not initialized");
+        }
     }
-    // nauka liczenia do 5ciu xd
+
     ResourceManager(const ResourceManager& other) : resource(other.resource) {}
     ResourceManager(ResourceManager&& other) noexcept : resource(std::move(other.resource)) {}
     ResourceManager& operator=(const ResourceManager& other) {
@@ -27,5 +36,5 @@ public:
     ~ResourceManager() {}
 
 private:
-    Resource resource; // Zarządzany obiekt typu Resource
+    std::shared_ptr<Resource> resource; // Test wskaźnika inteligentnego
 };
