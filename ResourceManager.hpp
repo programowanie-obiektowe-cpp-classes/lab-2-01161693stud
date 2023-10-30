@@ -4,16 +4,17 @@
 
 class ResourceManager {
 public:
-    ResourceManager() {
-        resource_ = Resource(); 
+    ResourceManager() : resource_() {
+    }
+
+    ~ResourceManager() {
     }
 
     double get() {
         return resource_.get();
     }
 
-    ResourceManager(const ResourceManager& other) {
-        resource_ = other.resource_;
+    ResourceManager(const ResourceManager& other) : resource_(other.resource_) {
     }
 
     ResourceManager& operator=(const ResourceManager& other) {
@@ -21,9 +22,6 @@ public:
             resource_ = other.resource_;
         }
         return *this;
-    }
-
-    ~ResourceManager() {
     }
 
 private:
